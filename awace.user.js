@@ -1,10 +1,14 @@
 // ==UserScript==
-// @id awace-local
+// @id awace
 // @name Arch Wiki Ace
 // @namespace https://github.com/lahwaacz/awace
 // @author Jakub Klinkovský <j.l.k@gmx.com>
-// @version local
+// @version 0.1
 // @description Ajax.org Cloud9 Editor brought to the Arch wiki
+// @website https://github.com/lahwaacz/awace
+// @supportURL https://github.com/lahwaacz/awace/issues
+// @updateURL https://raw.githubusercontent.com/lahwaacz/awace/master/awace.meta.js
+// @downloadURL https://raw.githubusercontent.com/lahwaacz/awace/master/awace.user.js
 // @match https://wiki.archlinux.org/*
 // @require https://raw.githubusercontent.com/ajaxorg/ace-builds/master/src-noconflict/ace.js
 // @require https://raw.githubusercontent.com/ajaxorg/ace-builds/master/src-noconflict/theme-github.js
