@@ -3,17 +3,17 @@
 // @name Arch Wiki Ace
 // @namespace https://github.com/lahwaacz/awace
 // @author Jakub Klinkovský <j.l.k@gmx.com>
-// @version 0.1
+// @version 0.2
 // @description Ajax.org Cloud9 Editor brought to the Arch wiki
 // @website https://github.com/lahwaacz/awace
 // @supportURL https://github.com/lahwaacz/awace/issues
 // @updateURL https://raw.githubusercontent.com/lahwaacz/awace/master/awace.meta.js
 // @downloadURL https://raw.githubusercontent.com/lahwaacz/awace/master/awace.user.js
 // @match https://wiki.archlinux.org/*
-// @require https://raw.githubusercontent.com/ajaxorg/ace-builds/master/src-noconflict/ace.js
-// @require https://raw.githubusercontent.com/ajaxorg/ace-builds/master/src-noconflict/theme-github.js
-// @require https://raw.githubusercontent.com/ajaxorg/ace-builds/master/src-noconflict/mode-javascript.js
-// @require https://raw.githubusercontent.com/ajaxorg/ace-builds/master/src-noconflict/keybinding-vim.js
+// @require https://raw.githubusercontent.com/lahwaacz/awace/master/ace-build/ace.js
+// @require https://raw.githubusercontent.com/lahwaacz/awace/master/ace-build/theme-chrome.js
+// @require https://raw.githubusercontent.com/lahwaacz/awace/master/ace-build/mode-mediawiki.js
+// @require https://raw.githubusercontent.com/lahwaacz/awace/master/ace-build/keybinding-vim.js
 // ==/UserScript==
 
 var mwTextArea = document.getElementById("wpTextbox1");
@@ -35,9 +35,10 @@ if (mwTextArea) {
 
     // initialize Ace
     var editor = ace.edit("awace-textarea");
-    editor.setTheme("ace/theme/github");
-    editor.getSession().setMode("ace/mode/javascript");
+    editor.setTheme("ace/theme/chrome");
+    editor.getSession().setMode("ace/mode/mediawiki");
     editor.getSession().setTabSize(4);
+    editor.getSession().setUseSoftTabs(true);
     editor.setKeyboardHandler("ace/keyboard/vim");
 
     // set text
