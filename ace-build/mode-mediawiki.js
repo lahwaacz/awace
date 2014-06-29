@@ -8,7 +8,7 @@ var MediawikiHighlightRules = function() {
     this.$rules = {
         start: [
             {
-                token: "markup.raw",
+                token: "support.function",
                 regex: "^ [\\s\\S]*$"
             },
             {
@@ -39,7 +39,7 @@ var MediawikiHighlightRules = function() {
         
         basic: [
             {
-                token: "constant",
+                token: "constant.character",
                 regex: "&([a-z]+|#[1-9][0-9]{1,3}|#x[a-z0-9]{1,4});",
             },
             {
@@ -57,54 +57,63 @@ var MediawikiHighlightRules = function() {
                        "({{DISPLAYTITLE:[^{}]+}})"
             },
             {
-                token: "string.strong_emphasis",
+                token: "markup.bold",
                 regex: "([']{5}(?=\\S))(.*?\\S[*_]*)(\\1)"
             },
             {
-                token: "string.strong",
+                token: "markup.bold",
                 regex: "([']{3}(?=\\S))(.*?\\S[*_]*)(\\1)"
             },
             {
-                token: "string.emphasis",
+                token: "markup.italic",
                 regex: "([']{2}(?=\\S))(.*?\\S[*_]*)(\\1)"
             },
             {
-                token: "wikilink",
-                regex: "\\[\\[[^\\[\\]]*\\]\\]"
+                token: ["markup.bold", "variable", "punctuation.operator", "variable.parameter", "markup.bold"],
+                regex: "(\\[\\[)([^\\[\\]\\|]+)(\\|)?([^\\[\\]]*)?(\\]\\])"
             },
             {
-                token : "externallink",
-                regex : "\\[[^\\[\\]]*\\]"
+                token: ["markup.bold", "string.underline", "string", "markup.bold"],
+                regex: "(\\[)([^\\[\\] ]+)([^\\[\\]]*)(\\])"
             },
             {
-                token: "externallink",
-                regex: "(?:https?|ftp|irc):[^'\">\\s]+[^\\(\\)\\.]"+
+                token: "string.underline",
+                regex: "(?:https?|ftp|irc):[^'\">\\s\\(\\)]+"+
                        "|"+
                        "(?:mailto:)?[-.\\w]+\\@[-a-z0-9]+(?:\\.[-a-z0-9]+)*\\.[a-z]+"
             },
             {
-                token: "template",
-                regex: "{{[^|{}]+}}"
+                token: ["markup.bold", "storage.template", "markup.bold"],
+                regex: "({{)([^|{}]+)(}})"
             },
             { 
-                token : "template",
-                regex : "{{[^\\|{}]+(?=(.*\\|)+.*}})",
-                next : "template"
+                token: ["markup.bold", "storage.template", "punctuation.operator", "keyword.operator"],
+                regex: "({{)([^\\|{}]+)(\\|)(\\w+=)?",
+                next: "template"
             },
         ],
         
         list: [
             {
-                regex : "$",
-                next  : "start"
+                regex: "$",
+                next: "pop"
             },
             {include: "basic"},
             {defaultToken: "list"}
         ],
         
-        template : [
-            {include : "start"},
-            {defaultToken: "template"}
+        template: [
+            {
+                token: "markup.bold",
+                regex: "}}",
+                next: "pop"
+            },
+            {
+                token: ["punctuation.operator", "keyword.operator"],
+                regex: "(\\|)(\\w+=)?"
+            },
+            {include: "start"},
+            {defaultToken: "text"}
         ]
     };
     
