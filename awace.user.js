@@ -39,6 +39,8 @@ if (mwTextArea) {
     editor.getSession().setMode("ace/mode/mediawiki");
     editor.getSession().setTabSize(4);
     editor.getSession().setUseSoftTabs(true);
+    editor.getSession().setUseWrapMode(true);
+    editor.setShowPrintMargin(false);
     editor.setKeyboardHandler("ace/keyboard/vim");
 
     // set text
