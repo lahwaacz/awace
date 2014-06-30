@@ -3,7 +3,7 @@
 // @name Arch Wiki Ace
 // @namespace https://github.com/lahwaacz/awace
 // @author Jakub Klinkovský <j.l.k@gmx.com>
-// @version 0.2
+// @version 0.3
 // @description Ajax.org Cloud9 Editor brought to the Arch wiki
 // @website https://github.com/lahwaacz/awace
 // @supportURL https://github.com/lahwaacz/awace/issues
