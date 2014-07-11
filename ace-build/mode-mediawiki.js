@@ -14,7 +14,7 @@ var MediawikiHighlightRules = function() {
             {
                 token: "mediawiki.table",
                 regex: "{\\|",
-                next: "table"
+                push: "table"
             },
             {
                 token: "keyword",
@@ -28,11 +28,15 @@ var MediawikiHighlightRules = function() {
             {
                 token: "markup.list",
                 regex: "^(#|\\*|\\:+|;)[\\s]*",
-                next: "list"
+                push: "list"
             },
             {
                 token: "markup.heading",
                 regex: "^(={1,6})(?!=)[^=]*(\\1)(\\s*$)"
+            },
+            {
+                token: "keyword",
+                regex: "^-{4,}"
             },
             {include: "basic"}
         ],
@@ -89,8 +93,22 @@ var MediawikiHighlightRules = function() {
             { 
                 token: ["markup.bold", "storage.template", "punctuation.operator", "keyword.operator"],
                 regex: "({{)([^\\|{}]+)(\\|)(\\w+=)?",
-                next: "template"
+                push: "template"
             },
+        ],
+        
+        table: [
+            {
+                token: "keyword.operator",
+                regex: "\\|}",
+                next: "pop"
+            },
+            {
+                token: "keyword.operator",
+                regex: "(\\!\\!)|(^\\!)|(^\\|-)|(\\|\\|)|(^\\|)"
+            },
+            {include: "basic"},
+            {defaultToken: "text"}
         ],
         
         list: [
