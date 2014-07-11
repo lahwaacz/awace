@@ -21,11 +21,10 @@ var MediawikiHighlightRules = function() {
             },
             
             // tables
-            // TODO: do the internals
             {
-                token: "mediawiki.table",
+                token: "keyword.operator",
                 regex: "{\\|",
-                next: "table"
+                push: "table"
             },
             
             // redirect link (needs to be defined before ordered lists!)
@@ -45,13 +44,19 @@ var MediawikiHighlightRules = function() {
             {
                 token: "markup.list",
                 regex: "^(#|\\*|\\:+|;)[\\s]*",
-                next: "list"
+                push: "list"
             },
             
             // headings
             {
                 token: "markup.heading",
                 regex: "^(={1,6})(?!=)[^=]*(\\1)(\\s*$)"
+            },
+
+            // horizontal line
+            {
+                token: "keyword",
+                regex: "^-{4,}"
             },
             
             // fallback to normal text
@@ -134,8 +139,22 @@ var MediawikiHighlightRules = function() {
             { 
                 token: ["markup.bold", "storage.template", "punctuation.operator", "keyword.operator"],
                 regex: "({{)([^\\|{}]+)(\\|)(\\w+=)?",
-                next: "template"
+                push: "template"
             },
+        ],
+        
+        table: [
+            {
+                token: "keyword.operator",
+                regex: "\\|}",
+                next: "pop"
+            },
+            {
+                token: "keyword.operator",
+                regex: "(\\!\\!)|(^\\!)|(^\\|-)|(\\|\\|)|(^\\|)"
+            },
+            {include: "basic"},
+            {defaultToken: "text"}
         ],
         
         list: [
